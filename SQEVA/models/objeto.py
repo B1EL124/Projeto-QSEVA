@@ -37,7 +37,7 @@ class Objeto:
             if data.year > 2025:
                 raise ValueError("Ano deve ser antes de 2026.")
             self.__data = data    
-            #s a+O melhor copia e cola do mundo está nesse set
+            #s O melhor copia e cola do mundo está nesse set
 
         def set_descricao(self, descricao):
             try:
