@@ -42,9 +42,9 @@ class Funcionario:
             if matricula is None or matricula.strip() == "":
                 raise ValueError
             if len(matricula) != 11:
-            self.__matricula = matricula
-            except Exception:
-                raise ValueError("Matrícula inválida (não poder ser vazio)")
+                self.__matricula = matricula
+        except Exception:
+            raise ValueError("Matrícula inválida (não poder ser vazio)")
 
 
 
