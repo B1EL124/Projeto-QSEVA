@@ -1,4 +1,4 @@
-from datetime import datetime, date
+from datetime import datetime
 
 class Objeto:
     def __init__(self, id, local, data, descricao):
@@ -9,8 +9,7 @@ class Objeto:
 
     def __str__(self):
         return f"{self.__id} - {self.__local} - {self.__data} – {self.__descricao}"
-    
-    # ---sets---
+
     def set_id(self, id):
         try:
             if id is None:
@@ -36,7 +35,7 @@ class Objeto:
         if isinstance(data, str):
             data = datetime.fromisoformat(data)
 
-        if isinstance(data, datetime) is False:
+        if not isinstance(data, datetime):
             data = datetime.combine(data, datetime.min.time())
 
         agora = datetime.now()
@@ -47,7 +46,7 @@ class Objeto:
         if data.date() == agora.date() and data.time() > agora.time():
             raise ValueError("O horário não pode ser maior que o horário atual.")
 
-        self.__data = data    
+        self.__data = data
 
     def set_descricao(self, descricao):
         try:
