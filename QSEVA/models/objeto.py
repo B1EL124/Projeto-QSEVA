@@ -1,0 +1,57 @@
+from datetime import datetime
+
+class Objeto:
+    def __init__(self, id, local, data, descricao):
+        self.set_id(id)
+        self.set_local(local)
+        self.set_data(data)
+        self.set_descricao(descricao)
+
+    def __str__(self):
+        return f"{self.__id} - {self.__local} - {self.__data} – {self.__descricao}"
+
+    def set_id(self, id):
+        try:
+            if id is None:
+                raise ValueError("Id inválido")
+            if isinstance(id, str) and id.strip() == "":
+                raise ValueError
+            self.__id = id
+        except Exception:
+            raise ValueError("ID inválido (O ID não pode estar vazio)")
+
+    def set_local(self, local):
+        try:
+            if local is None or local.strip() == "":
+                raise ValueError
+            self.__local = local
+        except Exception:
+            raise ValueError("Local inválido (O local não pode estar vazio)")
+
+    def set_data(self, data):
+        if data is None:
+            raise ValueError("Data inválida")
+
+        if isinstance(data, str):
+            data = datetime.fromisoformat(data)
+
+        if not isinstance(data, datetime):
+            data = datetime.combine(data, datetime.min.time())
+
+        agora = datetime.now()
+
+        if data.date() > agora.date():
+            raise ValueError("A data não pode ser maior que a data de hoje.")
+
+        if data.date() == agora.date() and data.time() > agora.time():
+            raise ValueError("O horário não pode ser maior que o horário atual.")
+
+        self.__data = data
+
+    def set_descricao(self, descricao):
+        try:
+            if descricao is None or descricao.strip() == "":
+                raise ValueError
+            self.__descricao = descricao
+        except Exception:
+            raise ValueError("Descrição inválida (A descrição não pode estar vazia)")
