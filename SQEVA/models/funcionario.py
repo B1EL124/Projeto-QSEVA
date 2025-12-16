@@ -3,6 +3,10 @@ import json
 import os
 
 
+def validar_nome(nome):
+    ...
+
+
 class Funcionario:
     def __init__(self, id, nome, fone, matricula, senha):
         self.set_id(id)

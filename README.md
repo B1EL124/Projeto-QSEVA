@@ -5,6 +5,7 @@
 - **Giordanni Gomes Maciel**
 - **João Gustavo Alves da Silva**
 - **Samuel Andrey Teixeira Rigo**
+- **Luis Gustavo Pereira Benecio**
 
 ---
 
