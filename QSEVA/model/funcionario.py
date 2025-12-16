@@ -1,6 +1,4 @@
-from models.dao import DAO
-import json
-import os
+
 
 
 class Funcionario:

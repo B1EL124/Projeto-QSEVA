@@ -1,24 +1,18 @@
 from datetime import datetime
 
 class Objeto:
-    def __init__(self, id, local, data, descricao):
-        self.set_id(id)
+    
+    local: str
+    data: str
+    descricao: str
+
+    def __init__(self, local, data, descricao):
         self.set_local(local)
         self.set_data(data)
         self.set_descricao(descricao)
 
     def __str__(self):
-        return f"{self.__id} - {self.__local} - {self.__data} – {self.__descricao}"
-
-    def set_id(self, id):
-        try:
-            if id is None:
-                raise ValueError("Id inválido")
-            if isinstance(id, str) and id.strip() == "":
-                raise ValueError
-            self.__id = id
-        except Exception:
-            raise ValueError("ID inválido (O ID não pode estar vazio)")
+        return f"{self.__local} - {self.__data} – {self.__descricao}"
 
     def set_local(self, local):
         try:

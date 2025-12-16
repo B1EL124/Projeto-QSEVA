@@ -1,3 +1,0 @@
-
-class Telefone():
-    numero: int
