@@ -1,25 +1,26 @@
 from typing import get_type_hints
 from QSEVA.errors import TypeCastError
+from datetime import datetime, date, time
 
 
-Default = object()
-NotSet = object()
+Padrao = object()
+Indefinido = object()
 
 
 class Field:
     def __init__(
             self, 
-            default_value = None, 
-            default_factory = None,
-            validators: list = [],
-            is_pk: bool = False, 
-            is_nullable: bool = False, 
+            valor_padrao = None, 
+            fabrica_padrao = None,
+            validadores: list = [],
+            chave_primaria: bool = False, 
+            permitir_nulo: bool = False, 
     ):
-        self.default_value = default_value
-        self.default_factory = default_factory
-        self.validators = list(validators)
-        self.is_pk = is_pk
-        self.is_nullable = is_nullable
+        self.valor_padrao = valor_padrao
+        self.fabrica_padrao = fabrica_padrao
+        self.validadores = list(validadores)
+        self.chave_primaria = chave_primaria
+        self.permitir_nulo = permitir_nulo
 
 
     def __set_name__(self, owner, name):
@@ -29,15 +30,14 @@ class Field:
 
 
     def __set__(self, instance, value):
-        if value is Default:
-            value = self.default()
+        if value is Padrao:
+            value = self.Padrao()
         
-        if value is not NotSet:
-            value = self.type_caster(value)
+        if value is not Indefinido:
+            value = self.conversar_tipo(value)
             self.validator(value)
 
         instance.__dict__[self.name] = value
-
 
 
     def __get__(self, instance, owner):
@@ -47,30 +47,34 @@ class Field:
         return instance.__dict__[self.name]
 
 
-    def type_caster(self, value):
-        if self.is_nullable and value is None:
-            return value
-        
-        if not isinstance(value, self.type):
-            try:
-                value = self.type(value)
-            except:
-                raise TypeCastError(value, self.type)
+    def conversar_tipo(self, value):
+        if isinstance(value, self.type) or (self.permitir_nulo and value is None):
+            return value        
+
+        try:
+            match self.type:
+                case int(): value = int(float(value))
+                case datetime(): value = datetime.fromisoformat(value)
+                case date(): value = date.fromisoformat(value)
+                case time(): value = time.fromisoformat(value)
+                case _: value = self.type(value)
+        except:
+            raise TypeCastError(value, self.type)
 
         return value
 
 
     def validator(self, value):
-        if self.is_nullable and value is None:
+        if self.permitir_nulo and value is None:
             return
         
-        for validator in self.validators:
+        for validator in self.validadores:
             validator(value)
 
 
-    def default(self):
-        if self.default_factory is not None:
-            return self.default_factory()
+    def Padrao(self):
+        if self.fabrica_padrao is not None:
+            return self.fabrica_padrao()
         
-        if self.default_value is not None or self.is_nullable:
-            return self.default_value
+        if self.valor_padrao is not None or self.permitir_nulo:
+            return self.valor_padrao
