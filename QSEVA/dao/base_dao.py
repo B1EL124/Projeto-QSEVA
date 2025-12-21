@@ -3,14 +3,14 @@ import json
 from QSEVA.model.base_model import BaseModel
 
 
-DB_DIRECTORY_PATH = Path(__file__).parents[1] / "db"
-DB_DIRECTORY_PATH.mkdir(exist_ok = True)
+DB_DIRECTORY = Path(__file__).parents[1] / "db"
+DB_DIRECTORY.mkdir(exist_ok = True)
 
 
 class BaseDAO:
     def __init_subclass__(cls, model: BaseModel):
         cls.model = model
-        cls.DB_PATH = DB_DIRECTORY_PATH / f"{model.__name__}.json"
+        cls.DB_PATH = DB_DIRECTORY / f"{model.__name__}.json"
 
         cls.objetos = []
         cls.contador_id = 0
@@ -21,33 +21,36 @@ class BaseDAO:
 
     @classmethod
     def abrir(cls):
-        with cls.DB_PATH.open("r") as file:
+        with cls.DB_PATH.open("r", encoding = "utf-8") as file:
             dados_json = json.load(file)
 
         cls.objetos = [cls.model.from_json(objeto_json) for objeto_json in dados_json]
-        
-        if hasattr(cls.model, "id"):
-            cls.contador_id = max([objeto.id for objeto in cls.objetos])
 
 
     @classmethod
     def salvar(cls):
         dados_json = [objeto.to_json() for objeto in cls.objetos]
 
-        with cls.DB_PATH.open("w") as file:
-            json.dump(dados_json, file)
-    
+        with cls.DB_PATH.open("w", encoding="utf-8") as file:
+            json.dump(dados_json, file, indent=4, ensure_ascii=False)
+
+
+    @classmethod
+    def gerar_id(cls) -> int:
+        return max([objeto.id for objeto in cls.objetos], default = 0) + 1
+
 
     @classmethod
     def inserir(cls, objeto: BaseModel):
         cls.abrir()
 
         if hasattr(cls.model, "id"):
-            cls.contador_id += 1
-            objeto.id = cls.contador_id
+            objeto.id = cls.gerar_id()
+            
         cls.objetos.append(objeto)
 
         cls.salvar()
+        return objeto
 
     
     @classmethod
@@ -57,29 +60,34 @@ class BaseDAO:
     
 
     @classmethod
-    def procurar(cls, objeto_procurado: BaseModel):
+    def procurar(cls, objeto):
         raise NotImplementedError()
 
 
     @classmethod
-    def atualizar(cls, objeto_procurado: BaseModel, objeto_novo: BaseModel) -> bool:
+    def atualizar(cls, objeto) -> bool:
         cls.abrir()
         
-        objeto_antigo = cls.procurar(objeto_procurado)
-        
+        objeto_antigo = cls.procurar(objeto)
         if objeto_antigo is None:
             return False
         
         cls.objetos.remove(objeto_antigo)
-        cls.objetos.append(objeto_novo)
+        cls.objetos.append(objeto)
 
         cls.salvar()
+        return True
 
 
     @classmethod
-    def deletar(cls):
+    def deletar(cls, objeto) -> bool:
         cls.abrir()
 
+        objeto = cls.procurar(objeto)
+        if objeto is None:
+            return False
 
+        cls.objetos.remove(objeto)
 
         cls.salvar()
+        return True
