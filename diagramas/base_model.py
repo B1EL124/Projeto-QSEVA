@@ -8,8 +8,8 @@ class BaseModel:
         json_data = {}
 
         for name, value in vars(self).items():
-            if (value) in (Decimal, datetime, date, time):
-                json_data[name] =type str(value)
+            if type(value) in (Decimal, datetime, date, time):
+                json_data[name] = str(value)
             else:
                 json_data[name] = value
         

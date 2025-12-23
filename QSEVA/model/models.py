@@ -1,14 +1,19 @@
-from QSEVA.model.base_model import BaseModel
+from diagramas.base_model import BaseModel
 from QSEVA.model.field import Field
 from datetime import datetime
 
 
+def nao_vazio(value):
+    if not value.strip():
+        raise ValueError("não pode ser vazio.")
+
+
 class Usuario(BaseModel):
     id: int = Field()
-    nome: str = Field()
-    email: str = Field()
-    telefone: str = Field()
-    senha: str = Field()
+    nome: str = Field(validators=[nao_vazio])
+    email: str = Field(validators=[nao_vazio])
+    telefone: str = Field(validators=[nao_vazio])
+    senha: str = Field(validators=[nao_vazio])
 
     permissao_administrador: bool = Field()
     permissao_funcionario: bool = Field()
@@ -37,8 +42,8 @@ class Usuario(BaseModel):
 
 class Objeto(BaseModel):
     id: int = Field()
-    descricao: str = Field()
-    guardado_em: str = Field()
+    descricao: str = Field(validators=[nao_vazio])
+    guardado_em: str = Field(validators=[nao_vazio])
 
     def __init__(self, id = None, descricao = None, guardado_em = None):
         self.id = id
@@ -50,7 +55,7 @@ class Colaboracao(BaseModel):
     id_objeto: int = Field()
     id_colaborador: int = Field()
     data_hora_encontrado: datetime = Field()
-    local_encontrado: str = Field()
+    local_encontrado: str = Field(validators=[nao_vazio])
 
     def __init__(
         self,
@@ -69,7 +74,7 @@ class Solicitacao(BaseModel):
     id: int = Field()
     id_solicitante: int = Field()
     id_autorizador: int = Field()
-    descricao: str = Field()
+    descricao: str = Field(validators=[nao_vazio])
     data_hora: datetime = Field()
     foi_finalizada: bool = Field()
 

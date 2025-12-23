@@ -7,7 +7,7 @@ from QSEVA.dao.daos import UsuarioDAO
 
 
 gio = Usuario(
-    nome="Giordanni",
+    nome="gio",
     email="gio@gmail.com",
     telefone="111111111",
     senha="senha123",
@@ -36,6 +36,27 @@ luis = Usuario(
     permissao_interessado=True
 )
 
-UsuarioDAO.inserir(gio)
-UsuarioDAO.inserir(joao)
-UsuarioDAO.inserir(luis)
+# gio = UsuarioDAO.inserir(gio)
+# joao = UsuarioDAO.inserir(joao)
+# luis = UsuarioDAO.inserir(luis)
+
+# for obj in UsuarioDAO.listar():
+#     print(obj)
+
+procurar_gio_por_id = Usuario(id = 1)
+print(UsuarioDAO.procurar(procurar_gio_por_id))
+
+# novo_gio = Usuario(
+#     id = 1,
+#     nome="Giordanni2 Funcionando",
+#     email="gio2@gmail.com",
+#     telefone="0000000000",
+#     senha="SENHA_MUDOU",
+#     permissao_administrador=True,
+#     permissao_funcionario=False,
+#     permissao_interessado=True
+# )
+# print(UsuarioDAO.atualizar(novo_gio))
+
+# deletar_gio = Usuario(id=1)
+# print(UsuarioDAO.deletar(deletar_gio))

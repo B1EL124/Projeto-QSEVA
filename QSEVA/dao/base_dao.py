@@ -1,6 +1,6 @@
 from pathlib import Path
 import json
-from QSEVA.model.base_model import BaseModel
+from diagramas.base_model import BaseModel
 
 
 
@@ -56,15 +56,11 @@ class BaseDAO:
     def listar(cls):
         cls.abrir()
         return cls.objetos
-    
+
 
     @classmethod
-    def procurar(cls, objeto: BaseModel):
-        cls.abrir()
-        for obj in cls.objetos:
-            if objeto.is_sub_object_of(obj):
-                return obj
-        return None
+    def procurar(cls, objeto):
+        raise NotImplementedError()
 
 
     @classmethod
