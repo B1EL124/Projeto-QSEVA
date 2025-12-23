@@ -1,15 +1,22 @@
-from QSEVA.model.models import Usuario
-from QSEVA.dao.daos import BaseDAO
+from QSEVA.dao.base_dao import BaseDAO
+from QSEVA.model.models import *
 
 
+class UsuarioDAO(BaseDAO, model = Usuario):
+    ...
 
-class UsuarioDAO(BaseDAO, model=Usuario):
-   @classmethod
-   def procurar(cls, objeto):
-       cls.abrir()
 
-       for obj in cls.objetos:
-           if obj.id == objeto.id:
-               return obj
+# class ObjetoDAO(BaseDAO, model = Objeto):
+#     ...
 
-       return None      
+
+# class ColaboracaoDAO(BaseDAO, model = Colaboracao):
+#     ...
+
+
+# class SolicitacaoDAO(BaseDAO, model = Solicitacao):
+#     ...
+
+
+# class DevolucaoDAO(BaseDAO, model = Devolucao):
+#     ...

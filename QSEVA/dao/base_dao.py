@@ -3,17 +3,16 @@ import json
 from QSEVA.model.base_model import BaseModel
 
 
-DB_DIRECTORY = Path(__file__).parents[1] / "db"
-DB_DIRECTORY.mkdir(exist_ok = True)
-
 
 class BaseDAO:
     def __init_subclass__(cls, model: BaseModel):
         cls.model = model
-        cls.DB_PATH = DB_DIRECTORY / f"{model.__name__}.json"
 
+        DB_DIRECTORY = Path(__file__).parents[1] / "db"
+        DB_DIRECTORY.mkdir(exist_ok = True)
+
+        cls.DB_PATH = DB_DIRECTORY / f"{model.__name__}.json"
         cls.objetos = []
-        cls.contador_id = 0
         
         if not cls.DB_PATH.exists():
             cls.salvar()
@@ -60,12 +59,16 @@ class BaseDAO:
     
 
     @classmethod
-    def procurar(cls, objeto):
-        raise NotImplementedError()
+    def procurar(cls, objeto: BaseModel):
+        cls.abrir()
+        for obj in cls.objetos:
+            if objeto.is_sub_object_of(obj):
+                return obj
+        return None
 
 
     @classmethod
-    def atualizar(cls, objeto) -> bool:
+    def atualizar(cls, objeto: BaseModel) -> bool:
         cls.abrir()
         
         objeto_antigo = cls.procurar(objeto)
@@ -80,7 +83,7 @@ class BaseDAO:
 
 
     @classmethod
-    def deletar(cls, objeto) -> bool:
+    def deletar(cls, objeto: BaseModel) -> bool:
         cls.abrir()
 
         objeto = cls.procurar(objeto)

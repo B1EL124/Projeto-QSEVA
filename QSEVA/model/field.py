@@ -1,6 +1,6 @@
 import typing
 from datetime import datetime, date, time
-from QSEVA.errors import NormalizationError,TypeCastError
+from QSEVA.errors import NormalizationError, TypeCastError
 
 
 class Field:

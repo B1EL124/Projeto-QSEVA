@@ -21,5 +21,12 @@ class BaseModel:
         return cls(**json_data)
 
 
+    def is_sub_object_of(self, obj):
+        for name, value in vars(self).items():
+            if value is not None and value != getattr(obj, name):
+                return False
+        return True
+
+
     def __str__(self):
         return json.dumps(self.to_json(), ensure_ascii=False, indent=4)
