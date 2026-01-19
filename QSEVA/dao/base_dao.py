@@ -59,8 +59,8 @@ class BaseDAO:
 
 
     @classmethod
-    def procurar(cls, objeto):
-        raise NotImplementedError()
+    def procurar(cls, objeto: BaseModel):
+        ...
 
 
     @classmethod

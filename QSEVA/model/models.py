@@ -44,30 +44,14 @@ class Objeto(BaseModel):
     id: int = Field()
     descricao: str = Field(validators=[nao_vazio])
     guardado_em: str = Field(validators=[nao_vazio])
+    id_colaborador: int = Field()
+    data_hora_encontrado: datetime = Field()
+    local_encontrado: str = Field(validators=[nao_vazio])
 
     def __init__(self, id = None, descricao = None, guardado_em = None):
         self.id = id
         self.descricao = descricao
         self.guardado_em = guardado_em
-
-
-class Colaboracao(BaseModel):
-    id_objeto: int = Field()
-    id_colaborador: int = Field()
-    data_hora_encontrado: datetime = Field()
-    local_encontrado: str = Field(validators=[nao_vazio])
-
-    def __init__(
-        self,
-        id_objeto = None,
-        id_colaborador = None,
-        data_hora_encontrado = None,
-        local_encontrado = None,
-    ):
-        self.id_objeto = id_objeto
-        self.id_colaborador = id_colaborador
-        self.data_hora_encontrado = data_hora_encontrado
-        self.local_encontrado = local_encontrado
 
 
 class Solicitacao(BaseModel):

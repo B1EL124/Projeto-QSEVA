@@ -38,6 +38,8 @@ class Field:
         try:
             if self.type in (datetime, date, time):
                 value = self.type.fromisoformat(value)
+            elif self.type is int:
+                value = int(float(value))
             else:
                 value = self.type(value)
         except Exception:

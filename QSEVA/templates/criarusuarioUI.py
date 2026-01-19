@@ -13,11 +13,4 @@ class CriarUsuarioUI():
         funcionario = st.checkbox("Funcionário")
         administrador = st.checkbox("Administrador")
 
-        permissoes = []
-        if interessado:
-            permissoes.append("Interessado")
-        if funcionario:
-            permissoes.append("Funcionário")
-        if administrador:
-            permissoes.append("Administrador")
         st.button("Criar Usuário")

@@ -8,8 +8,8 @@ class BaseModel:
         json_data = {}
 
         for name, value in vars(self).items():
-            if (value) in (Decimal, datetime, date, time):
-                json_data[name] =type str(value)
+            if type(value) in (Decimal, datetime, date, time):
+                json_data[name] = str(value)
             else:
                 json_data[name] = value
         
@@ -19,13 +19,6 @@ class BaseModel:
     @classmethod
     def from_json(cls, json_data):
         return cls(**json_data)
-
-
-    def is_sub_object_of(self, obj):
-        for name, value in vars(self).items():
-            if value is not None and value != getattr(obj, name):
-                return False
-        return True
 
 
     def __str__(self):

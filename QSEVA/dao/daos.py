@@ -22,17 +22,6 @@ class ObjetoDAO(BaseDAO, model = Objeto):
         return None
     
 
-
-class ColaboracaoDAO(BaseDAO, model = Colaboracao):
-    @classmethod
-    def procurar(cls, objeto):
-        cls.abrir()
-        for obj in cls.objetos:
-            if obj.id_objeto == objeto.id_objeto and obj.id_colaborador == objeto.id_colaborador:
-                return obj
-        return None
-    
-
 class SolicitacaoDAO(BaseDAO, model = Solicitacao):
     @classmethod
     def procurar(cls, objeto):
@@ -51,4 +40,3 @@ class DevolucaoDAO(BaseDAO, model = Devolucao):
             if obj.id_objeto == objeto.id_objeto and obj.id_solicitante == objeto.id_solicitante:
                 return obj
         return None
-    
