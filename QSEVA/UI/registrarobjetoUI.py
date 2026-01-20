@@ -4,6 +4,7 @@ from datetime import datetime
 import streamlit as st
 from QSEVA.controller.controllers import Controllers
 
+
 class RegistrarObjetoUI():        
     def main():
         st.header("Registro de Objeto Encontrado")
@@ -25,4 +26,3 @@ class RegistrarObjetoUI():
 
             except Exception as e:
                 st.error(f"Erro ao registrar objeto. {e}")
-    main()

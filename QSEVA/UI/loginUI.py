@@ -20,6 +20,7 @@ class loginUI():
             
             st.session_state.usuario_logado = usuario
             st.success(f"Bem vindo {usuario.nome}!")
+            st.rerun()
         
 
 

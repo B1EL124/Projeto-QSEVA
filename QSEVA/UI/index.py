@@ -13,7 +13,7 @@ class IndexUI:
 
         if st.session_state.usuario_logado is None:
             loginUI.main()
-            st.write("Tela de login")  # debug visível no navegador
+            st.write("Tela de login")
         else:
             RegistrarObjetoUI.main()
-            st.write("Tela principal")  # debug visível no navegador
+            st.write("Tela principal")
