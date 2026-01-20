@@ -1,19 +1,27 @@
 import sys
 sys.dont_write_bytecode = True
+import streamlit as st
+from QSEVA.controller.controllers import Controllers
 
 
-# from QSEVA.controller.controllers import UsuarioController
+class loginUI():
+    def main():
+        st.header("Login Menu")
 
-# UsuarioController.inserir(
-#     nome = "gio",
-#     email = "gio@gmail.com",
-#     telefone = "111111111",
-#     senha = "senha123"
-# )
+        email = st.text_input("Email")
+        senha = st.text_input("Senha", type = "password")
 
+        if st.button("Entrar"):
+            usuario = Controllers.UsuarioController.autenticar(email, senha)
 
-from QSEVA.UI.index import IndexUI
-IndexUI.main()
+            if not usuario:
+                st.error("Email ou senha incorretos.")
+                return
+            
+            st.session_state.usuario_logado = usuario
+            st.success(f"Bem vindo {usuario.nome}!")
+        
+
 
 # import streamlit as st
 # from datetime import datetime

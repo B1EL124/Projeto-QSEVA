@@ -58,3 +58,10 @@ class Devolucao(BaseModel):
     def __init__(self, id_objeto = None, id_solicitante = None):
         self.id_objeto = id_objeto
         self.id_solicitante = id_solicitante
+
+
+class Models:
+    Usuario = Usuario
+    Solicitacao = Solicitacao
+    Devolucao = Devolucao
+    Objeto = Objeto

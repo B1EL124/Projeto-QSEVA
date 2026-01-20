@@ -40,3 +40,10 @@ class DevolucaoDAO(BaseDAO, model = Devolucao):
             if obj.id_objeto == objeto.id_objeto and obj.id_solicitante == objeto.id_solicitante:
                 return obj
         return None
+
+
+class DAOS:
+    UsuarioDAO = UsuarioDAO
+    SolicitacaoDAO = SolicitacaoDAO
+    DevolucaoDAO = DevolucaoDAO
+    ObjetoDAO = ObjetoDAO
