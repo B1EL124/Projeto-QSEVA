@@ -10,11 +10,6 @@ class ObjetoController:
 
 
     @staticmethod
-    def listar():
-        return ObjetoDAO.listar()
-
-
-    @staticmethod
     def buscar(id):
         return ObjetoDAO.procurar(Objeto(id))
 

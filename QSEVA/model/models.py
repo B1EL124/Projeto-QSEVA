@@ -44,8 +44,9 @@ class Solicitacao(BaseModel):
     descricao: str = Field(validators=[nao_vazio])
     data_hora: datetime = Field()
 
-    def __init__(self, id_solicitante, data_hora, id = None):
+    def __init__(self, id_solicitante, descricao, data_hora, id = None):
         self.id_solicitante = id_solicitante
+        self.descricao = descricao
         self.data_hora = data_hora
         self.id = id
 
