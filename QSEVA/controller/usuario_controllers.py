@@ -4,23 +4,9 @@ from QSEVA.dao.daos import UsuarioDAO
 
 class UsuarioController:
     @staticmethod
-    def inserir(nome, email, telefone, senha,
-              permissao_administrador,
-              permissao_funcionario,
-              permissao_interessado):
-        
-        return UsuarioDAO.inserir(
-            Usuario(
-                None,
-                nome,
-                email,
-                telefone,
-                senha,
-                permissao_administrador,
-                permissao_funcionario,
-                permissao_interessado
-            )
-        )
+    def inserir(nome, email, telefone, senha):
+        usuario = Usuario(nome, email, telefone, senha)
+        return UsuarioDAO.inserir(usuario)
 
 
     @staticmethod
@@ -34,22 +20,9 @@ class UsuarioController:
 
 
     @staticmethod
-    def atualizar(id, nome, email, telefone, senha,
-                  permissao_administrador,
-                  permissao_funcionario,
-                  permissao_interessado):
-        return UsuarioDAO.atualizar(
-            Usuario(
-                id,
-                nome,
-                email,
-                telefone,
-                senha,
-                permissao_administrador,
-                permissao_funcionario,
-                permissao_interessado
-            )
-        )
+    def atualizar(id, nome, email, telefone, senha):
+        usuario = Usuario(nome, email, telefone, senha, id)
+        return UsuarioDAO.atualizar(usuario)
 
 
     @staticmethod
