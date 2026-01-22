@@ -1,0 +1,3 @@
+class SuasSolicitacoesUI:
+    def main():
+        ...

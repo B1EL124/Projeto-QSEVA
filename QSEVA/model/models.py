@@ -14,14 +14,18 @@ class Usuario(BaseModel):
     email: str = Field(validators=[nao_vazio])
     telefone: str = Field(validators=[nao_vazio])
     senha: str = Field(validators=[nao_vazio])
+    interessado: bool = Field()
+    funcionario: bool = Field()
 
     def __init__(
-        self, nome, email, telefone, senha, id = None
+        self, nome, email, telefone, senha, interessado, funcionario, id = None
     ):
         self.nome = nome
         self.email = email
         self.telefone = telefone
         self.senha = senha
+        self.interessado = interessado
+        self.funcionario = funcionario
         self.id = id
 
 

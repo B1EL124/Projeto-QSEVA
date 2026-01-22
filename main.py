@@ -4,12 +4,13 @@ sys.dont_write_bytecode = True
 
 from QSEVA.controller.controllers import UsuarioController
 
-
 UsuarioController.inserir(
     nome = "gio",
     email = "gio@gmail.com",
     telefone = "111111111",
-    senha = "senha123"
+    senha = "senha123",
+    interessado = True,
+    funcionario = True
 )
 
 

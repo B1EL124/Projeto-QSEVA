@@ -1,0 +1,3 @@
+class RegistrarUsuarioUI:
+    def main():
+        ...

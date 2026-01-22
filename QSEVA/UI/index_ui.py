@@ -20,20 +20,24 @@ class IndexUI:
         if st.session_state.usuario_logado is None:
             loginUI.main()
             st.write("Faça o seu Login")
-        
         else:
-            match st.session_state.perfil_usuario:
+            match st.session_state.perfil:
                 case "interessado": cls.interessado_main()
                 case "funcionario": cls.funcionario_main() 
     
-    
+        
     @classmethod
     def interessado_main(cls):
         paginas = [
             "Home",
             "Abrir Solicitação"
         ]
-        pagina = st.sidebar.radio(options = paginas)
+
+        pagina = st.sidebar.radio(
+            "Menu do Interessado",
+            options=paginas,
+            key="menu_interessado"
+        )
 
         match pagina:
             case "Home": HomeUI.main()
@@ -43,11 +47,16 @@ class IndexUI:
     @classmethod
     def funcionario_main(cls):
         paginas = [
-            "Home", 
-            "Registrar Objeto", 
+            "Home",
+            "Registrar Objeto",
             "Registrar Solicitação"
         ]
-        pagina = st.sidebar.radio(options = paginas)
+
+        pagina = st.sidebar.radio(
+            "Menu do Funcionário",
+            options=paginas,
+            key="menu_funcionario"
+        )
 
         match pagina:
             case "Home": HomeUI.main()

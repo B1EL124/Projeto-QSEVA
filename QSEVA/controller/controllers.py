@@ -27,8 +27,8 @@ class ObjetoController(BaseController, dao = DAOS.ObjetoDAO):
 
 class UsuarioController(BaseController, dao = DAOS.UsuarioDAO):
     @staticmethod
-    def inserir(nome, email, telefone, senha) :
-        usuario = Models.Usuario(nome, email, telefone, senha)
+    def inserir(nome, email, telefone, senha, interessado, funcionario):
+        usuario = Models.Usuario(nome, email, telefone, senha, interessado, funcionario)
         return DAOS.UsuarioDAO.inserir(usuario)
 
     @staticmethod
@@ -45,7 +45,7 @@ class UsuarioController(BaseController, dao = DAOS.UsuarioDAO):
         return DAOS.UsuarioDAO.deletar(Models.Usuario(id))
 
     @staticmethod
-    def autenticar(email, senha) -> Optional[BaseModel]:
+    def autenticar(email, senha) -> Models.Usuario:
         for usuario in DAOS.UsuarioDAO.listar():
             if usuario.email == email and usuario.senha == senha:
                 return usuario
