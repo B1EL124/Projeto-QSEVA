@@ -1,0 +1,29 @@
+title CDU 001 - Login
+
+participant IndexUI
+participant LoginUI
+participant UsuarioController
+participant UsuarioDAO
+participant Usuario
+
+IndexUI -> LoginUI: main()
+
+LoginUI -> UsuarioController: autenticar(email, senha) : Usuario
+
+UsuarioController -> UsuarioDAO: listar() : list[Usuario]
+
+UsuarioDAO -> UsuarioDAO: abrir()
+
+activate UsuarioDAO
+  loop for each dados_usuario
+    UsuarioDAO -> Usuario: from_json(dados_usuario) : Usuario
+  end
+deactivate UsuarioDAO
+
+UsuarioDAO -> UsuarioDAO: salvar():
+
+activate UsuarioDAO
+  loop for each usuario
+    UsuarioDAO -> Usuario: usuario.to_json() : dict[str, Any]
+  end
+deactivate UsuarioDAO

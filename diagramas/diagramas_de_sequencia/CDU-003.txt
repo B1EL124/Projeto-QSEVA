@@ -1,0 +1,31 @@
+title CDU 003 - Registrar Usuário
+
+participant IndexUI
+participant RegistrarUsuarioUI
+participant UsuarioController
+participant UsuarioDAO
+participant Usuario
+
+IndexUI -> RegistrarUsuarioUI: main()
+
+RegistrarUsuarioUI -> UsuarioController: inserir(nome, email, telefone, senha, interessado, funcionario) : Usuario
+
+UsuarioController -> Usuario: __new__(nome, email, telefone, senha, interessado, funcionario): Usuario
+
+UsuarioController -> UsuarioDAO: inserir(usuario) : Usuario
+
+UsuarioDAO -> UsuarioDAO: abrir()
+
+activate UsuarioDAO
+  loop for each dados_usuario
+    UsuarioDAO -> Usuario: from_json(dados_usuario): Usuario
+  end
+deactivate UsuarioDAO
+
+UsuarioDAO -> UsuarioDAO: salvar()
+
+activate UsuarioDAO
+  loop for each usuario
+    UsuarioDAO -> Usuario: usuario.to_json() : dict[str, Any]
+  end
+deactivate UsuarioDAO
