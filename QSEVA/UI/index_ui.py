@@ -7,6 +7,8 @@ from QSEVA.UI.home_ui import HomeUI
 from QSEVA.UI.login_ui import loginUI
 from QSEVA.UI.registrar_solicitação_ui import RegistrarSolicitacaoUI
 from QSEVA.UI.registrar_objeto_ui import RegistrarObjetoUI
+from QSEVA.UI.visualizar_solicitacao_ui import VisualizarSolicitacaoUI
+
 
 
 class IndexUI:
@@ -62,3 +64,6 @@ class IndexUI:
             case "Home": HomeUI.main()
             case "Registrar Objeto": RegistrarObjetoUI.main()
             case "Registrar Solicitação": RegistrarSolicitacaoUI.main()   
+            case "Visualizar Solicitação:": VisualizarSolicitacaoUI.main()
+            #case "Registrar Devolução": RegistrarDevolucao.main()
+            
