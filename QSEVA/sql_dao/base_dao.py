@@ -2,7 +2,7 @@ import sqlite3
 from pathlib import Path
 
 
-DB_PATH = Path(__file__).parent / ".db"
+DB_PATH = str(Path(__file__).parent / ".db")
 
 
 class BaseDAO:
@@ -17,6 +17,7 @@ class BaseDAO:
 
     def open(self):
         self.connection = sqlite3.connect(DB_PATH)
+        self.connection.row_factory = sqlite3.Row
         self.cursor = self.connection.cursor()
 
 
