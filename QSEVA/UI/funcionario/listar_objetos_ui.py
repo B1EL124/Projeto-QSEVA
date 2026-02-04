@@ -1,3 +1,3 @@
-class AbrirSolicitacaoUI:
+class ListarObjetosUI:
     def main():
         ...

@@ -3,46 +3,48 @@ from QSEVA.dao.usuario_dao import UsuarioDAO
 
 
 class UsuarioController:
-    def __init__(self):
-        self.dao = UsuarioDAO()
-
-
-    def inserir(self, nome, email, telefone, senha, interessado, funcionario) -> Usuario:
+    @staticmethod
+    def inserir(nome, email, telefone, senha, interessado, funcionario) -> Usuario:
         usuario = Usuario(
-            nome=nome,
-            email=email,
-            telefone=telefone,
-            senha=senha,
-            interessado=interessado,
-            funcionario=funcionario
+            nome = nome,
+            email = email,
+            telefone = telefone,
+            senha = senha,
+            interessado = interessado,
+            funcionario = funcionario
         )
-        return self.dao.inserir(usuario)
+        return UsuarioDAO().inserir(usuario)
 
 
-    def listar(self) -> list[Usuario]:
-        return self.dao.listar()
+    @staticmethod
+    def listar() -> list[Usuario]:
+        return UsuarioDAO().listar()
 
 
-    def procurar(self, id) -> Usuario | None:
-        return self.dao.procurar(id)
+    @staticmethod
+    def procurar(id) -> Usuario | None:
+        return UsuarioDAO().procurar(id)
 
 
-    def atualizar(self, id, nome, email, telefone, senha, interessado, funcionario) -> None:
+    @staticmethod
+    def atualizar(id, nome, email, telefone, senha, interessado, funcionario) -> None:
         usuario = Usuario(
-            id=id,
-            nome=nome,
-            email=email,
-            telefone=telefone,
-            senha=senha,
-            interessado=interessado,
-            funcionario=funcionario
+            id = id,
+            nome = nome,
+            email = email,
+            telefone = telefone,
+            senha = senha,
+            interessado = interessado,
+            funcionario = funcionario
         )
-        self.dao.atualizar(usuario)
+        UsuarioDAO().atualizar(usuario)
 
 
-    def deletar(self, id) -> None:
-        self.dao.deletar(id)
+    @staticmethod
+    def deletar(id) -> None:
+        UsuarioDAO().deletar(id)
 
 
-    def autenticar(self, email, senha) -> Usuario | None:
-        return self.dao.autenticar(email, senha)
+    @staticmethod
+    def autenticar(email, senha) -> Usuario | None:
+        return UsuarioDAO().autenticar(email, senha)

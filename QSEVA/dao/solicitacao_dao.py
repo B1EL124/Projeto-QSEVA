@@ -10,6 +10,7 @@ class SolicitacaoDAO(BaseDAO):
                 id_solicitante INTEGER NOT NULL,
                 descricao TEXT NOT NULL,
                 data_hora DATETIME NOT NULL,
+                
                 PRIMARY KEY (id)
             )
         """

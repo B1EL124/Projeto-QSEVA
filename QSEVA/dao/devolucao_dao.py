@@ -8,7 +8,8 @@ class DevolucaoDAO(BaseDAO):
             CREATE TABLE IF NOT EXISTS devolucao (
                 id_objeto INTEGER NOT NULL,
                 id_solicitante INTEGER NOT NULL,
-                data_hora DATETIME,
+                data_hora DATETIME, 
+                
                 PRIMARY KEY (id_objeto, id_solicitante)
             )
         """

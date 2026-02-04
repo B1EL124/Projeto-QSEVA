@@ -1,6 +1,2 @@
-
-
-
 class RegistrarSolicitacaoUI:
-    def main():
-        ...
+    ...

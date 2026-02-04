@@ -1,0 +1,3 @@
+class RegistrarDevolucaoUI:
+    def main():
+        ...

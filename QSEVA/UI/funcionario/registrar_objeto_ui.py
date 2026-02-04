@@ -1,8 +1,6 @@
-import sys
-sys.dont_write_bytecode = True
 from datetime import datetime
+from QSEVA.controller.objeto_controller import ObjetoController
 import streamlit as st
-from QSEVA.controller.controllers import Controllers
 
 
 class RegistrarObjetoUI():        
@@ -19,7 +17,7 @@ class RegistrarObjetoUI():
                     data_hora_encontrado,
                     hora_encontrado
                 )
-                Controllers.ObjetoController.inserir(
+                ObjetoController.inserir(
                     descricao, data_hora_encontrado, local_encontrado
                 )
                 st.success("Objeto registrado com sucesso.")

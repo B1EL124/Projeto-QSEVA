@@ -11,6 +11,7 @@ def criar_tabelas(resetar: bool = False):
         SolicitacaoDAO().resetar()
         UsuarioDAO().resetar()
 
+
     DevolucaoDAO().criar_tabela()
     ObjetoDAO().criar_tabela()
     SolicitacaoDAO().criar_tabela()

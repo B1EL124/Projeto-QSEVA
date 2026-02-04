@@ -1,10 +1,8 @@
-import sys
-sys.dont_write_bytecode = True
 import streamlit as st
-from QSEVA.controller.controllers import Controllers
+from QSEVA.controller.usuario_controller import UsuarioController
 
 
-class loginUI():
+class LoginUI():
     def main():
         st.header("Login Menu")
 
@@ -13,7 +11,7 @@ class loginUI():
         perfil = st.radio("Entrar Como:", ("Interessado", "Funcionário"))
 
         if st.button("Entrar"):
-            usuario = Controllers.UsuarioController.autenticar(email, senha)
+            usuario = UsuarioController.autenticar(email, senha)
 
             if not usuario:
                 st.error("Email ou senha incorretos.")

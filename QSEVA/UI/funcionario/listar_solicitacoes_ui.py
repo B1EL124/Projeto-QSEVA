@@ -1,0 +1,3 @@
+class ListarSolicitacoesUI:
+    def main():
+        ...
