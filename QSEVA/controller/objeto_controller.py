@@ -1,26 +1,38 @@
-class ObjetoController(BaseController, dao=DAOS.ObjetoDAO):
-    @staticmethod
-    def insert(descricao, data_hora_encontrado, local_encontrado):
-        objeto = Models.Objeto(descricao, data_hora_encontrado, local_encontrado)
-        return DAOS.ObjetoDAO.insert(objeto)
+from QSEVA.model.objeto import Objeto
+from QSEVA.dao.objeto_dao import ObjetoDAO
 
 
-    @staticmethod
-    def get_by_id(id):
-        return DAOS.ObjetoDAO.get_by_id(id)
+class ObjetoController:
+    def __init__(self):
+        self.dao = ObjetoDAO()
 
 
-    @staticmethod
-    def list_all():
-        return DAOS.ObjetoDAO.list_all()
+    def inserir(self, descricao, data_hora_encontrado, local_encontrado) -> Objeto:
+        objeto = Objeto(
+            descricao=descricao,
+            data_hora_encontrado=data_hora_encontrado,
+            local_encontrado=local_encontrado
+        )
+        return self.dao.inserir(objeto)
 
 
-    @staticmethod
-    def update(id, descricao, data_hora_encontrado, local_encontrado):
-        objeto = Models.Objeto(descricao, data_hora_encontrado, local_encontrado, id)
-        return DAOS.ObjetoDAO.update(objeto)
+    def listar(self) -> list[Objeto]:
+        return self.dao.listar()
 
 
-    @staticmethod
-    def delete(id):
-        return DAOS.ObjetoDAO.delete(id)
+    def procurar(self, id) -> Objeto | None:
+        return self.dao.procurar(id)
+
+
+    def atualizar(self, id, descricao, data_hora_encontrado, local_encontrado) -> None:
+        objeto = Objeto(
+            id=id,
+            descricao=descricao,
+            data_hora_encontrado=data_hora_encontrado,
+            local_encontrado=local_encontrado
+        )
+        self.dao.atualizar(objeto)
+
+
+    def deletar(self, id) -> None:
+        self.dao.deletar(id)

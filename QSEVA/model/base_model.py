@@ -1,25 +1,57 @@
-from decimal import Decimal
+from typing import Any
+from dataclasses import dataclass, Field, fields
 from datetime import datetime, date, time
-import json
+from decimal import Decimal
 
 
+def type_cast(field: Field, value: Any) -> object:
+    if value is None:
+        return value
+
+    try:
+        if isinstance(value, field.type):
+            return value
+
+        if field.type is int:
+            value = int(float(value))
+        elif field.type in (datetime, date, time) and isinstance(value, str):
+            value = field.type.fromisoformat(value)
+        else:
+            value = field.type(value)
+
+    except Exception:
+        if field.type in (int, float, Decimal):
+            raise ValueError(f"Erro em {field.name}: deve ser um número.")
+        raise
+
+    return value
+
+
+def validate(field: Field, value: Any) -> None:
+    try: 
+        for validator in field.metadata.get("validators", []): 
+            validator(value) 
+
+    except Exception as e: 
+        raise ValueError(f"Erro em {field.name}: {e}")
+
+
+def normalize(field: Field, value: Any) -> object:
+    if value is None:
+        return value
+
+    value = type_cast(field, value)
+    validate(field, value)
+
+    return value
+
+
+@dataclass
 class BaseModel:
-    def to_json(self):
-        json_data = {}
+    def __post_init__(self):
+        for field in fields(self):
+            value = getattr(self, field.name)
+            
+            value = normalize(field, value)
+            setattr(self, field.name, value)
 
-        for name, value in vars(self).items():
-            if type(value) in (Decimal, datetime, date, time):
-                json_data[name] = str(value)
-            else:
-                json_data[name] = value
-        
-        return json_data
-
-
-    @classmethod
-    def from_json(cls, json_data):
-        return cls(**json_data)
-
-
-    def __str__(self):
-        return json.dumps(self.to_json(), ensure_ascii=False, indent=4)

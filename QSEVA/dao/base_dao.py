@@ -1,92 +1,82 @@
+import sqlite3
 from pathlib import Path
-import json
-from diagramas.base_model import BaseModel
 
+from QSEVA.model.base_model import BaseModel
+
+
+DB_PATH = str(Path(__file__).parents[1] / "db.sqlite")
 
 
 class BaseDAO:
-    def __init_subclass__(cls, model: BaseModel):
-        cls.model = model
-
-        DB_DIRECTORY = Path(__file__).parents[1] / "db"
-        DB_DIRECTORY.mkdir(exist_ok = True)
-
-        cls.DB_PATH = DB_DIRECTORY / f"{model.__name__}.json"
-        cls.objetos = []
-        
-        if not cls.DB_PATH.exists():
-            cls.salvar()
+    connection: sqlite3.Connection | None
+    cursor: sqlite3.Cursor | None
 
 
-    @classmethod
-    def abrir(cls):
-        with cls.DB_PATH.open("r", encoding = "utf-8") as file:
-            dados_json = json.load(file)
-
-        cls.objetos = [cls.model.from_json(objeto_json) for objeto_json in dados_json]
+    def __init__(self):
+        self.connection = None
+        self.cursor = None
 
 
-    @classmethod
-    def salvar(cls):
-        dados_json = [objeto.to_json() for objeto in cls.objetos]
-
-        with cls.DB_PATH.open("w", encoding="utf-8") as file:
-            json.dump(dados_json, file, indent=4, ensure_ascii=False)
-
-
-    @classmethod
-    def gerar_id(cls) -> int:
-        return max([objeto.id for objeto in cls.objetos], default = 0) + 1
-
-
-    @classmethod
-    def inserir(cls, objeto: BaseModel):
-        cls.abrir()
-
-        if hasattr(cls.model, "id"):
-            objeto.id = cls.gerar_id()
-            
-        cls.objetos.append(objeto)
-
-        cls.salvar()
-        return objeto
-
+    def abrir(self):
+        if self.connection is not None:
+            return
     
-    @classmethod
-    def listar(cls):
-        cls.abrir()
-        return cls.objetos
+        self.connection = sqlite3.connect(
+            DB_PATH,
+            detect_types=sqlite3.PARSE_DECLTYPES
+        )
+
+        self.connection.row_factory = sqlite3.Row
+        self.cursor = self.connection.cursor()
 
 
-    @classmethod
-    def procurar(cls, objeto: BaseModel):
-        ...
-
-
-    @classmethod
-    def atualizar(cls, objeto: BaseModel) -> bool:
-        cls.abrir()
+    def fechar(self):
+        if self.cursor:
+            self.cursor.close()
+        if self.connection:
+            self.connection.close()
         
-        objeto_antigo = cls.procurar(objeto)
-        if objeto_antigo is None:
-            return False
+        self.cursor = None
+        self.connection = None
+
+
+    def salvar(self):
+        if self.connection:
+            self.connection.commit()
+
+
+    def executar(
+        self, sql: str, parameters: tuple = (),
+        *, abrir: bool = False, salvar: bool = False, fechar: bool = False,
+    ):
+        try: 
+            if abrir: self.abrir()
+            self.cursor.execute(sql, parameters)
+            if salvar: self.salvar()
         
-        cls.objetos.remove(objeto_antigo)
-        cls.objetos.append(objeto)
-
-        cls.salvar()
-        return True
+        finally:
+            if fechar: self.fechar()
 
 
-    @classmethod
-    def deletar(cls, objeto: BaseModel) -> bool:
-        cls.abrir()
+    def criar_tabela(self) -> None:
+        raise NotImplementedError()
 
-        objeto = cls.procurar(objeto)
-        if objeto is None:
-            return False
 
-        cls.objetos.remove(objeto)
+    def inserir(self) -> BaseModel:
+        raise NotImplementedError()
 
-        cls.salvar()
-        return True
+
+    def listar(self) -> list[BaseModel]:
+        raise NotImplementedError()
+
+
+    def procurar(self) -> BaseModel | None:
+        raise NotImplementedError()
+
+
+    def atualizar(self) -> None:
+        raise NotImplementedError()
+
+
+    def deletar(self) -> None:
+        raise NotImplementedError()

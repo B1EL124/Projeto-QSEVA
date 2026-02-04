@@ -1,22 +1,38 @@
-class SolicitacaoController(BaseController, dao=DAOS.SolicitacaoDAO):
-    @staticmethod
-    def insert(id_solicitante, descricao, data_hora):
-        solicitacao = Models.Solicitacao(id_solicitante, descricao, data_hora)
-        return DAOS.SolicitacaoDAO.insert(solicitacao)
+from QSEVA.model.solicitacao import Solicitacao
+from QSEVA.dao.solicitacao_dao import SolicitacaoDAO
 
-    @staticmethod
-    def get_by_id(id):
-        return DAOS.SolicitacaoDAO.get_by_id(id)
 
-    @staticmethod
-    def list_all():
-        return DAOS.SolicitacaoDAO.list_all()
+class SolicitacaoController:
+    def __init__(self):
+        self.dao = SolicitacaoDAO()
 
-    @staticmethod
-    def update(id, id_solicitante, descricao, data_hora):
-        solicitacao = Models.Solicitacao(id_solicitante, descricao, data_hora, id)
-        return DAOS.SolicitacaoDAO.update(solicitacao)
 
-    @staticmethod
-    def delete(id):
-        return DAOS.SolicitacaoDAO.delete(id)
+    def inserir(self, id_solicitante, descricao, data_hora) -> Solicitacao:
+        solicitacao = Solicitacao(
+            id_solicitante=id_solicitante,
+            descricao=descricao,
+            data_hora=data_hora
+        )
+        return self.dao.inserir(solicitacao)
+
+
+    def listar(self) -> list[Solicitacao]:
+        return self.dao.listar()
+
+
+    def procurar(self, id) -> Solicitacao | None:
+        return self.dao.procurar(id)
+
+
+    def atualizar(self, id, id_solicitante, descricao, data_hora) -> None:
+        solicitacao = Solicitacao(
+            id=id,
+            id_solicitante=id_solicitante,
+            descricao=descricao,
+            data_hora=data_hora
+        )
+        self.dao.atualizar(solicitacao)
+
+
+    def deletar(self, id) -> None:
+        self.dao.deletar(id)

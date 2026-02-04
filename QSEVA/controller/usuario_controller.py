@@ -1,31 +1,48 @@
-class UsuarioController(BaseController, dao=DAOS.UsuarioDAO):
-    @staticmethod
-    def insert(nome, email, telefone, senha, interessado, funcionario):
-        usuario = Models.Usuario(nome, email, telefone, senha, interessado, funcionario)
-        return DAOS.UsuarioDAO.insert(usuario)
+from QSEVA.model.usuario import Usuario
+from QSEVA.dao.usuario_dao import UsuarioDAO
 
 
-    @staticmethod
-    def get_by_id(id):
-        return DAOS.UsuarioDAO.get_by_id(id)
+class UsuarioController:
+    def __init__(self):
+        self.dao = UsuarioDAO()
 
 
-    @staticmethod
-    def list_all():
-        return DAOS.UsuarioDAO.list_all()
+    def inserir(self, nome, email, telefone, senha, interessado, funcionario) -> Usuario:
+        usuario = Usuario(
+            nome=nome,
+            email=email,
+            telefone=telefone,
+            senha=senha,
+            interessado=interessado,
+            funcionario=funcionario
+        )
+        return self.dao.inserir(usuario)
 
 
-    @staticmethod
-    def update(id, nome, email, telefone, senha, interessado, funcionario):
-        usuario = Models.Usuario(nome, email, telefone, senha, interessado, funcionario, id)
-        return DAOS.UsuarioDAO.update(usuario)
+    def listar(self) -> list[Usuario]:
+        return self.dao.listar()
 
 
-    @staticmethod
-    def delete(id):
-        return DAOS.UsuarioDAO.delete(id)
+    def procurar(self, id) -> Usuario | None:
+        return self.dao.procurar(id)
 
 
-    @staticmethod
-    def authenticate(email, senha):
-        return DAOS.UsuarioDAO.authenticate(email, senha)
+    def atualizar(self, id, nome, email, telefone, senha, interessado, funcionario) -> None:
+        usuario = Usuario(
+            id=id,
+            nome=nome,
+            email=email,
+            telefone=telefone,
+            senha=senha,
+            interessado=interessado,
+            funcionario=funcionario
+        )
+        self.dao.atualizar(usuario)
+
+
+    def deletar(self, id) -> None:
+        self.dao.deletar(id)
+
+
+    def autenticar(self, email, senha) -> Usuario | None:
+        return self.dao.autenticar(email, senha)
