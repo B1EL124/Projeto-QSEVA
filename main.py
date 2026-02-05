@@ -19,5 +19,5 @@ def iniciar_db():
         funcionario = True
     )
 
-# iniciar_db()
+iniciar_db()
 IndexUI.main()

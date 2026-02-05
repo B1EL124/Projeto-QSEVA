@@ -1,3 +1,4 @@
+from requests import session
 import streamlit as st
 
 from QSEVA.UI.login_ui import LoginUI
@@ -7,6 +8,7 @@ from QSEVA.UI.funcionario.listar_solicitacoes_ui import ListarSolicitacoesUI
 from QSEVA.UI.funcionario.registrar_devolucao_ui import RegistrarDevolucaoUI
 from QSEVA.UI.funcionario.registrar_objeto_ui import RegistrarObjetoUI
 from QSEVA.UI.funcionario.registrar_usuario_ui import RegistrarUsuarioUI
+from QSEVA.UI.funcionario.listar_devolucoes_ui import ListarDevolucoesUI
 
 from QSEVA.UI.interessado.registrar_solicitacao_ui import RegistrarSolicitacaoUI
 from QSEVA.UI.interessado.suas_solicitacoes_ui import SuasSolicitacoesUI
@@ -14,6 +16,13 @@ from QSEVA.UI.interessado.suas_solicitacoes_ui import SuasSolicitacoesUI
 
 
 class IndexUI:
+    @classmethod
+    def sair(cls):
+        del st.session_state["usuario"]
+        del st.session_state["perfil"]
+        st.rerun()
+
+
     @classmethod
     def main(cls):
         if "usuario" not in st.session_state:
@@ -37,7 +46,8 @@ class IndexUI:
 
         paginas = [
             "Abrir solicitação",
-            "Suas solicitações"
+            "Suas solicitações",
+            "Sair"
         ]
 
         pagina = st.sidebar.radio(
@@ -50,6 +60,7 @@ class IndexUI:
         match pagina:
             case "Abrir solicitação": RegistrarSolicitacaoUI.main()
             case "Suas solicitações": SuasSolicitacoesUI.main()
+            case "Sair": cls.sair()
 
 
     @classmethod
@@ -59,7 +70,9 @@ class IndexUI:
             "Registrar devolução",
             "Registrar usuário",
             "Listar solicitações",
-            "Listar objetos"
+            "Listar objetos",
+            "Listar devoluções",
+            "Sair"
         ]
 
         pagina = st.sidebar.radio(
@@ -73,3 +86,5 @@ class IndexUI:
             case "Registrar usuário": RegistrarUsuarioUI.main()
             case "Listar solicitações": ListarSolicitacoesUI.main()
             case "Listar objetos": ListarObjetosUI.main()
+            case "Listar devoluções": ListarDevolucoesUI.main()
+            case "Sair": cls.sair()

@@ -11,6 +11,7 @@ class DevolucaoDAO(BaseDAO):
                 data_hora DATETIME, 
                 
                 PRIMARY KEY (id_objeto, id_solicitante)
+                UNIQUE (id_objeto)
             )
         """
 
