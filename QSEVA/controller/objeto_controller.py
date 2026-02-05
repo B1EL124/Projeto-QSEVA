@@ -1,7 +1,6 @@
 from QSEVA.model.objeto import Objeto
 from QSEVA.dao.objeto_dao import ObjetoDAO
 
-
 class ObjetoController:
     @staticmethod
     def inserir(descricao, data_hora_encontrado, local_encontrado) -> Objeto:
@@ -10,18 +9,15 @@ class ObjetoController:
             data_hora_encontrado=data_hora_encontrado,
             local_encontrado=local_encontrado
         )
-        return ObjetoController().inserir(objeto)
-
+        return ObjetoDAO().inserir(objeto)
 
     @staticmethod
     def listar() -> list[Objeto]:
-        return ObjetoController().listar()
-
+        return ObjetoDAO().listar()
 
     @staticmethod
     def procurar(id) -> Objeto | None:
-        return ObjetoController().procurar(id)
-
+        return ObjetoDAO().procurar(id)
 
     @staticmethod
     def atualizar(id, descricao, data_hora_encontrado, local_encontrado) -> None:
@@ -31,9 +27,8 @@ class ObjetoController:
             data_hora_encontrado=data_hora_encontrado,
             local_encontrado=local_encontrado
         )
-        ObjetoController().atualizar(objeto)
-
+        ObjetoDAO().atualizar(objeto)
 
     @staticmethod
     def deletar(id) -> None:
-        ObjetoController().deletar(id)
+        ObjetoDAO().deletar(id)
