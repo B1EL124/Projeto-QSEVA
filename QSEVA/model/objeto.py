@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from QSEVA.model.base_model import BaseModel
-from model.validacao import nao_vazio
+from QSEVA.model.validacao import nao_vazio
 from datetime import datetime
 
 

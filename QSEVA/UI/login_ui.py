@@ -30,5 +30,4 @@ class LoginUI():
                 case "Interessado": st.session_state.perfil = "interessado"
                 case "Funcionário": st.session_state.perfil = "funcionario"
             
-            st.success(f"Bem vindo {usuario.nome}!")
             st.rerun()

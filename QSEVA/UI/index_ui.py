@@ -1,15 +1,15 @@
 import streamlit as st
 
-from QSEVA.ui.login_ui import LoginUI
+from QSEVA.UI.login_ui import LoginUI
 
-from QSEVA.ui.funcionario.listar_objetos_ui import ListarObjetosUI
-from QSEVA.ui.funcionario.listar_solicitacoes_ui import ListarSolicitacoesUI
-from QSEVA.ui.funcionario.registrar_devolucao_ui import RegistrarDevolucaoUI
-from QSEVA.ui.funcionario.registrar_objeto_ui import RegistrarObjetoUI
-from QSEVA.ui.funcionario.registrar_usuario_ui import RegistrarUsuarioUI
+from QSEVA.UI.funcionario.listar_objetos_ui import ListarObjetosUI
+from QSEVA.UI.funcionario.listar_solicitacoes_ui import ListarSolicitacoesUI
+from QSEVA.UI.funcionario.registrar_devolucao_ui import RegistrarDevolucaoUI
+from QSEVA.UI.funcionario.registrar_objeto_ui import RegistrarObjetoUI
+from QSEVA.UI.funcionario.registrar_usuario_ui import RegistrarUsuarioUI
 
-from QSEVA.ui.interessado.registrar_solicitacao_ui import RegistrarSolicitacaoUI
-from QSEVA.ui.interessado.suas_solicitacoes_ui import SuasSolicitacoesUI
+from QSEVA.UI.interessado.registrar_solicitacao_ui import RegistrarSolicitacaoUI
+from QSEVA.UI.interessado.suas_solicitacoes_ui import SuasSolicitacoesUI
 
 
 

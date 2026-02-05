@@ -3,7 +3,7 @@ sys.dont_write_bytecode = True
 
 
 from QSEVA.dao.criar_tabelas import criar_tabelas
-from QSEVA.ui.index_ui import IndexUI
+from QSEVA.UI.index_ui import IndexUI
 from QSEVA.controller.usuario_controller import UsuarioController
 
 

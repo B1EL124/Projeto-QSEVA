@@ -4,36 +4,40 @@ from QSEVA.dao.solicitacao_dao import SolicitacaoDAO
 
 class SolicitacaoController:
     @staticmethod
-    def inserir(id_solicitante, descricao, data_hora) -> Solicitacao:
+    def inserir(id_solicitante, descricao, local_perdido, data_hora_perdido, data_hora) -> Solicitacao:
         solicitacao = Solicitacao(
             id_solicitante=id_solicitante,
             descricao=descricao,
+            local_perdido=local_perdido,
+            data_hora_perdido=data_hora_perdido,
             data_hora=data_hora
         )
         return SolicitacaoDAO().inserir(solicitacao)
 
-
+    
     @staticmethod
     def listar() -> list[Solicitacao]:
         return SolicitacaoDAO().listar()
 
-
+    
     @staticmethod
     def procurar(id) -> Solicitacao | None:
         return SolicitacaoDAO().procurar(id)
 
-
+    
     @staticmethod
-    def atualizar(id, id_solicitante, descricao, data_hora) -> None:
+    def atualizar(id, id_solicitante, descricao, local_perdido, data_hora_perdido, data_hora) -> None:
         solicitacao = Solicitacao(
             id=id,
             id_solicitante=id_solicitante,
             descricao=descricao,
+            local_perdido=local_perdido,
+            data_hora_perdido=data_hora_perdido,
             data_hora=data_hora
         )
         SolicitacaoDAO().atualizar(solicitacao)
 
-
+    
     @staticmethod
     def deletar(id) -> None:
         SolicitacaoDAO().deletar(id)

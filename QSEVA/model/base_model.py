@@ -21,7 +21,7 @@ def type_cast(field: Field, value: Any) -> object:
 
     except Exception:
         if field.type in (int, float, Decimal):
-            raise ValueError(f"Erro em {field.name}: deve ser um número.")
+            raise ValueError(f"Erro em {field.name}. deve ser um número.")
         raise
 
     return value
@@ -33,7 +33,7 @@ def validate(field: Field, value: Any) -> None:
             validator(value) 
 
     except Exception as e: 
-        raise ValueError(f"Erro em {field.name}: {e}")
+        raise ValueError(f"Erro em {field.name}. {e}")
 
 
 def normalize(field: Field, value: Any) -> object:
