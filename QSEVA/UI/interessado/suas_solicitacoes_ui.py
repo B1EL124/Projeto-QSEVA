@@ -1,11 +1,12 @@
 import streamlit as st
 from QSEVA.controller.solicitacao_controller import SolicitacaoController
 
+
 class SuasSolicitacoesUI:
     @staticmethod
     def main():
         st.header("Minhas Solicitações")
-        usuario = st.session_state.usuario_logado
+        usuario = st.session_state.usuario
         todas = SolicitacaoController.listar()
         minhas = [s for s in todas if s.id_solicitante == usuario.id]
         if not minhas:

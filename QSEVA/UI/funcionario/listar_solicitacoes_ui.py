@@ -1,6 +1,7 @@
 import streamlit as st
 from QSEVA.controller.solicitacao_controller import SolicitacaoController
 
+
 class ListarSolicitacoesUI:
     @staticmethod
     def main():

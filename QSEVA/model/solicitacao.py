@@ -5,7 +5,7 @@ from datetime import datetime
 
 @dataclass
 class Solicitacao(BaseModel):
-    id: int = None
     id_solicitante: int
     descricao: str 
     data_hora: datetime
+    id: int = None

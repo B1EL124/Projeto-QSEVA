@@ -6,21 +6,25 @@ class ObjetoDAO(BaseDAO):
     def criar_tabela(self) -> None:
         sql = """
             CREATE TABLE IF NOT EXISTS objeto (
-                id INTEGER NOT NULL,
+                id INTEGER PRIMARY KEY,
                 descricao TEXT NOT NULL,
                 data_hora_encontrado DATETIME NOT NULL,
-                local_encontrado TEXT NOT NULL,
-                
-                PRIMARY KEY (id)
+                local_encontrado TEXT NOT NULL
             )
         """
         
-        self.executar(sql, abrir=True, salvar=True, fechar=True)
+        self.abrir()
+        self.executar(sql)
+        self.salvar()
+        self.fechar()
 
 
     def resetar(self) -> None:
         sql = "DROP TABLE IF EXISTS objeto"
-        self.executar(sql, abrir=True, salvar=True, fechar=True)
+        self.abrir()
+        self.executar(sql)
+        self.salvar()
+        self.fechar()
 
 
     def inserir(self, objeto: Objeto) -> Objeto:
@@ -34,9 +38,13 @@ class ObjetoDAO(BaseDAO):
             objeto.local_encontrado
         )
 
-        self.executar(sql, parameters, abrir=True, salvar=True, fechar=True)
+        self.abrir()
+        self.executar(sql, parameters)
+        self.salvar()
+        objeto = self.procurar(id=self.cursor.lastrowid)
+        self.fechar()
 
-        return self.procurar(id=self.cursor.lastrowid)
+        return objeto
 
 
     def listar(self) -> list[Objeto]:
@@ -78,7 +86,10 @@ class ObjetoDAO(BaseDAO):
             objeto.id
         )
 
-        self.executar(sql, parameters, abrir=True, salvar=True, fechar=True)
+        self.abrir()
+        self.executar(sql, parameters)
+        self.salvar()
+        self.fechar()
 
 
     def deletar(self, id: int) -> None:
@@ -88,4 +99,7 @@ class ObjetoDAO(BaseDAO):
         """
         parameters = (id,)
         
-        self.executar(sql, parameters, abrir=True, salvar=True, fechar=True)
+        self.abrir()
+        self.executar(sql, parameters)
+        self.salvar()
+        self.fechar()

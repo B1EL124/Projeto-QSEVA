@@ -1,6 +1,7 @@
 import streamlit as st
 from QSEVA.controller.usuario_controller import UsuarioController
 
+
 class RegistrarUsuarioUI:
     @staticmethod
     def main():

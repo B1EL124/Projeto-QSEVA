@@ -2,6 +2,7 @@ import streamlit as st
 from datetime import datetime
 from QSEVA.controller.devolucao_controller import DevolucaoController
 
+
 class RegistrarDevolucaoUI:
     @staticmethod
     def main():

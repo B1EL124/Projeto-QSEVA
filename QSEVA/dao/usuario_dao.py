@@ -6,7 +6,7 @@ class UsuarioDAO(BaseDAO):
     def criar_tabela(self) -> None:
         sql = """
             CREATE TABLE IF NOT EXISTS usuario (
-                id INTEGER NOT NULL,
+                id INTEGER PRIMARY KEY,
                 nome TEXT NOT NULL,
                 email TEXT NOT NULL,
                 telefone TEXT NOT NULL,
@@ -14,17 +14,23 @@ class UsuarioDAO(BaseDAO):
                 interessado BOOLEAN NOT NULL,
                 funcionario BOOLEAN NOT NULL,
 
-                PRIMARY KEY (id),
                 UNIQUE (email)
             )
         """
         
-        self.executar(sql, abrir=True, salvar=True, fechar=True)
+        self.abrir()
+        self.executar(sql)
+        self.salvar()
+        self.fechar()
 
 
     def resetar(self) -> None:
         sql = "DROP TABLE IF EXISTS usuario"
-        self.executar(sql, abrir=True, salvar=True, fechar=True)
+
+        self.abrir()
+        self.executar(sql)
+        self.salvar()
+        self.fechar()
 
 
     def inserir(self, usuario: Usuario) -> Usuario:
@@ -40,11 +46,14 @@ class UsuarioDAO(BaseDAO):
             usuario.interessado,
             usuario.funcionario
         )
+    
+        self.abrir()
+        self.executar(sql, parameters)
+        self.salvar()
+        usuario = self.procurar(id = self.cursor.lastrowid)
+        self.fechar()
 
-        self.executar(sql, parameters, abrir=True, salvar=True, fechar=True)
-
-        return self.procurar(id = self.cursor.lastrowid)
-
+        return usuario
 
     def listar(self) -> list[Usuario]:
         sql = "SELECT * FROM usuario"
@@ -103,7 +112,10 @@ class UsuarioDAO(BaseDAO):
             usuario.id
         )
 
-        self.executar(sql, parameters, abrir=True, salvar=True, fechar=True)
+        self.abrir()
+        self.executar(sql, parameters)
+        self.salvar()
+        self.fechar()
 
 
     def deletar(self, id: int) -> None:
@@ -113,4 +125,7 @@ class UsuarioDAO(BaseDAO):
         """
         parameters = (id,)
         
-        self.executar(sql, parameters, abrir=True, salvar=True, fechar=True)
+        self.abrir()
+        self.executar(sql, parameters)
+        self.salvar()
+        self.fechar()

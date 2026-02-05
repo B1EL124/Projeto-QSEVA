@@ -23,7 +23,7 @@ class BaseDAO:
     
         self.connection = sqlite3.connect(
             DB_PATH,
-            detect_types=sqlite3.PARSE_DECLTYPES
+            detect_types = sqlite3.PARSE_DECLTYPES
         )
 
         self.connection.row_factory = sqlite3.Row
@@ -45,17 +45,8 @@ class BaseDAO:
             self.connection.commit()
 
 
-    def executar(
-        self, sql: str, parameters: tuple = (),
-        *, abrir: bool = False, salvar: bool = False, fechar: bool = False,
-    ):
-        try: 
-            if abrir: self.abrir()
-            self.cursor.execute(sql, parameters)
-            if salvar: self.salvar()
-        
-        finally:
-            if fechar: self.fechar()
+    def executar(self, sql: str, parameters: tuple = ()):
+        self.cursor.execute(sql, parameters)
 
 
     def criar_tabela(self) -> None:

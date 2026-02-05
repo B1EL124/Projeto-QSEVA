@@ -13,13 +13,20 @@ class DevolucaoDAO(BaseDAO):
                 PRIMARY KEY (id_objeto, id_solicitante)
             )
         """
-        
-        self.executar(sql, abrir=True, salvar=True, fechar=True)
+
+        self.abrir()
+        self.executar(sql)
+        self.salvar()
+        self.fechar()
 
 
     def resetar(self) -> None:
         sql = "DROP TABLE IF EXISTS devolucao"
-        self.executar(sql, abrir=True, salvar=True, fechar=True)
+
+        self.abrir()
+        self.executar(sql)
+        self.salvar()
+        self.fechar()
 
 
     def inserir(self, devolucao: Devolucao) -> Devolucao:
@@ -33,7 +40,10 @@ class DevolucaoDAO(BaseDAO):
             devolucao.data_hora
         )
 
-        self.executar(sql, parameters, abrir=True, salvar=True, fechar=True)
+        self.abrir()
+        self.executar(sql, parameters)
+        self.salvar()
+        self.fechar()
 
         return self.procurar(
             id_objeto = devolucao.id_objeto, 
@@ -79,5 +89,8 @@ class DevolucaoDAO(BaseDAO):
             id_objeto, 
             id_solicitante
         )
-        
-        self.executar(sql, parameters, abrir=True, salvar=True, fechar=True)
+
+        self.abrir()
+        self.executar(sql, parameters)
+        self.salvar()
+        self.fechar()

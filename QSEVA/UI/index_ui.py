@@ -16,12 +16,14 @@ from QSEVA.ui.interessado.suas_solicitacoes_ui import SuasSolicitacoesUI
 class IndexUI:
     @classmethod
     def main(cls):
-        st.session_state.usuario = st.session_state.get("usuario", None)
-        st.session_state.perfil = st.session_state.get("perfil", None)
+        if "usuario" not in st.session_state:
+            st.session_state.usuario = None
+            
+        if "perfil" not in st.session_state:
+            st.session_state.perfil = None
 
         if st.session_state.usuario is None:
             LoginUI.main()
-            ...
         
         else:
             match st.session_state.perfil:
@@ -31,6 +33,8 @@ class IndexUI:
 
     @classmethod
     def interessado_main(cls):
+        print("Interessado")
+
         paginas = [
             "Abrir solicitação",
             "Suas solicitações"
@@ -41,9 +45,11 @@ class IndexUI:
             options = paginas
         )
 
+        print(f"Página: {pagina}")
+
         match pagina:
-            case "Abrir solicitação": ... # AbrirSolicitacaoUI.main()
-            case "Suas solicitações": ... #SuasSolicitacoes.main()
+            case "Abrir solicitação": RegistrarSolicitacaoUI.main()
+            case "Suas solicitações": SuasSolicitacoesUI.main()
 
 
     @classmethod
@@ -62,8 +68,8 @@ class IndexUI:
         )
 
         match pagina:
-            case "Registrar objeto": ... # RegistrarObjetoUI.main()
-            case "Registrar devolução": ... # RegistrarDevolucao.main()
-            case "Registrar usuário": ... # RegistrarUsuario.main()
-            case "Listar solicitações": ... # ListarSolicitacoes.main()
-            case "Listar objetos": ... # ListarObjetosUI.main()
+            case "Registrar objeto": RegistrarObjetoUI.main()
+            case "Registrar devolução": RegistrarDevolucaoUI.main()
+            case "Registrar usuário": RegistrarUsuarioUI.main()
+            case "Listar solicitações": ListarSolicitacoesUI.main()
+            case "Listar objetos": ListarObjetosUI.main()

@@ -1,6 +1,7 @@
 import streamlit as st
 from QSEVA.controller.objeto_controller import ObjetoController
 
+
 class ListarObjetosUI:
     @staticmethod
     def main():

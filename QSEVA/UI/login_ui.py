@@ -25,7 +25,10 @@ class LoginUI():
                 st.error("Você não tem permissão para entrar com este perfil.")
                 return
             
-            st.session_state.usuario_logado = usuario
+            st.session_state.usuario = usuario
+            match perfil:
+                case "Interessado": st.session_state.perfil = "interessado"
+                case "Funcionário": st.session_state.perfil = "funcionario"
             
             st.success(f"Bem vindo {usuario.nome}!")
             st.rerun()
