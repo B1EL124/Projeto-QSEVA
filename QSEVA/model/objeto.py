@@ -1,5 +1,6 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from QSEVA.model.base_model import BaseModel
+from model.validacao import nao_vazio
 from datetime import datetime
 
 
@@ -7,5 +8,5 @@ from datetime import datetime
 class Objeto(BaseModel):
     descricao: str 
     data_hora_encontrado: datetime
-    local_encontrado: str 
+    local_encontrado: str = field(metadata = {'validators':[nao_vazio]})
     id: int = None
