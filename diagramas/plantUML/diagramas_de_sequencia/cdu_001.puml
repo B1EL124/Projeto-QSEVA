@@ -1,32 +1,32 @@
-@startuml cdu_001_login
+@startuml cdu_001.puml
 title CDU 001 - Login
+
+actor Visitante
 
 participant IndexUI
 participant LoginUI
 participant UsuarioController
 participant UsuarioDAO
 participant Usuario
+database SQLite
 
 IndexUI -> LoginUI: main()
 
+Visitante -> LoginUI: preencher email, senha, perfil
+Visitante -> LoginUI: clicar "Entrar"
+
 LoginUI -> UsuarioController: autenticar(email, senha)
 
-UsuarioController -> UsuarioDAO: listar()
-
+activate UsuarioDAO
+UsuarioController -> UsuarioDAO: autenticar(email, senha)
 UsuarioDAO -> UsuarioDAO: abrir()
-
-activate UsuarioDAO
-loop for each dados_usuario
-    UsuarioDAO -> Usuario: from_json(dados_usuario)
-end
+UsuarioDAO -> SQLite: SELECT * FROM usuario\nWHERE email=? AND senha=?
+SQLite --> UsuarioDAO: row | null
+UsuarioDAO -> Usuario: Usuario(**row)
+UsuarioDAO -> UsuarioDAO: fechar()
 deactivate UsuarioDAO
 
-UsuarioDAO -> UsuarioDAO: salvar()
-
-activate UsuarioDAO
-loop for each usuario
-    UsuarioDAO -> Usuario: usuario.to_json()
-end
-deactivate UsuarioDAO
+UsuarioDAO --> UsuarioController: Usuario | None
+UsuarioController --> LoginUI: Usuario | None
 
 @enduml

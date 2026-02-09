@@ -12,7 +12,8 @@ database SQLite
 
 IndexUI -> RegistrarUsuarioUI: main()
 
-Funcionario -> RegistrarUsuarioUI: open registration form
+Funcionario -> RegistrarUsuarioUI: preencher dados do usuario
+Funcionario -> RegistrarUsuarioUI: clicar "Salvar"
 
 RegistrarUsuarioUI -> UsuarioController: inserir(nome, email, telefone, senha, interessado, funcionario)
 
@@ -30,7 +31,7 @@ UsuarioDAO -> UsuarioDAO: fechar()
 deactivate UsuarioDAO
 
 UsuarioDAO --> UsuarioController: Usuario
-UsuarioController --> RegistrarUsuarioUI: Usuario
-RegistrarUsuarioUI --> Funcionario: show success message
+UsuarioController --> RegistrarUsuarioUI: sucesso | excecao
+RegistrarUsuarioUI --> Funcionario: mensagem de sucesso\nou erro
 
 @enduml

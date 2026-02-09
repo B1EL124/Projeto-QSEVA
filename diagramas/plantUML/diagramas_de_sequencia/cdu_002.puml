@@ -1,5 +1,7 @@
-@startuml cdu_002_registrar_objeto
+@startuml cdu_002_registrar_objet0
 title CDU 002 - Registrar Objeto
+
+actor Funcionario
 
 participant IndexUI
 participant RegistrarObjetoUI
@@ -9,6 +11,9 @@ participant Objeto
 database SQLite
 
 IndexUI -> RegistrarObjetoUI: main()
+
+Funcionario -> RegistrarObjetoUI: preencher descricao,\nlocal, data, hora
+Funcionario -> RegistrarObjetoUI: clicar "Registrar Objeto"
 
 RegistrarObjetoUI -> ObjetoController: inserir(descricao, data_hora_encontrado, local_encontrado)
 
@@ -26,6 +31,7 @@ ObjetoDAO -> ObjetoDAO: fechar()
 deactivate ObjetoDAO
 
 ObjetoDAO --> ObjetoController: Objeto
-ObjetoController --> RegistrarObjetoUI: Objeto
+ObjetoController --> RegistrarObjetoUI: sucesso | excecao
+RegistrarObjetoUI --> Funcionario: mensagem de sucesso\nou erro
 
 @enduml
