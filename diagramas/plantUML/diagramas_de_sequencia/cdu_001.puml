@@ -1,0 +1,32 @@
+@startuml cdu_001_login
+title CDU 001 - Login
+
+participant IndexUI
+participant LoginUI
+participant UsuarioController
+participant UsuarioDAO
+participant Usuario
+
+IndexUI -> LoginUI: main()
+
+LoginUI -> UsuarioController: autenticar(email, senha)
+
+UsuarioController -> UsuarioDAO: listar()
+
+UsuarioDAO -> UsuarioDAO: abrir()
+
+activate UsuarioDAO
+loop for each dados_usuario
+    UsuarioDAO -> Usuario: from_json(dados_usuario)
+end
+deactivate UsuarioDAO
+
+UsuarioDAO -> UsuarioDAO: salvar()
+
+activate UsuarioDAO
+loop for each usuario
+    UsuarioDAO -> Usuario: usuario.to_json()
+end
+deactivate UsuarioDAO
+
+@enduml

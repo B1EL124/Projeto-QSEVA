@@ -1,0 +1,49 @@
+@startuml UI
+
+hide empty members
+skinparam classAttributeIconSize 0
+
+class IndexUI <<boundary>> {
+    +sair() -> None
+    +main() -> None
+    +interessado_main() -> None
+    +funcionario_main() -> None
+}
+
+class LoginUI <<boundary>> {
+    +main() -> None
+}
+
+class RegistrarSolicitacaoUI <<boundary>> {
+    +main() -> None
+}
+
+class SuasSolicitacoesUI <<boundary>> {
+    +main() -> None
+}
+
+class ListarDevolucoesUI <<boundary>> {
+    +main() -> None
+}
+
+class ListarObjetosUI <<boundary>> {
+    +main() -> None
+}
+
+class ListarSolicitacoesUI <<boundary>> {
+    +main() -> None
+}
+
+class RegistrarDevolucaoUI <<boundary>> {
+    +main() -> None
+}
+
+class RegistrarObjetoUI <<boundary>> {
+    +main() -> None
+}
+
+class RegistrarUsuarioUI <<boundary>> {
+    +main() -> None
+}
+
+@enduml

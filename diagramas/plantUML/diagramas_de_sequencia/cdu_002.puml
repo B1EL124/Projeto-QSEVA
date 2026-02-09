@@ -1,0 +1,31 @@
+@startuml cdu_002_registrar_objeto
+title CDU 002 - Registrar Objeto
+
+participant IndexUI
+participant RegistrarObjetoUI
+participant ObjetoController
+participant ObjetoDAO
+participant Objeto
+database SQLite
+
+IndexUI -> RegistrarObjetoUI: main()
+
+RegistrarObjetoUI -> ObjetoController: inserir(descricao, data_hora_encontrado, local_encontrado)
+
+ObjetoController -> Objeto: __new__(descricao, data_hora_encontrado, local_encontrado)
+
+ObjetoController -> ObjetoDAO: inserir(objeto)
+
+activate ObjetoDAO
+ObjetoDAO -> ObjetoDAO: abrir()
+ObjetoDAO -> SQLite: INSERT INTO objeto\n(descricao, data_hora_encontrado, local_encontrado)
+ObjetoDAO -> SQLite: SELECT * FROM objeto\nWHERE id = lastrowid
+SQLite --> ObjetoDAO: row
+ObjetoDAO -> Objeto: Objeto(**row)
+ObjetoDAO -> ObjetoDAO: fechar()
+deactivate ObjetoDAO
+
+ObjetoDAO --> ObjetoController: Objeto
+ObjetoController --> RegistrarObjetoUI: Objeto
+
+@enduml

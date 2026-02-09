@@ -1,0 +1,35 @@
+@startuml Controller
+
+class DevolucaoController <<control>> {
+    +inserir(id_objeto: int, id_solicitante: int, data_hora: datetime) -> Devolucao
+    +listar() -> list[Devolucao]
+    +procurar(id_objeto: int, id_solicitante: int) -> Devolucao | None
+    +deletar(id_objeto: int, id_solicitante: int) -> None
+}
+
+class ObjetoController <<control>> {
+    +inserir(descricao: str, data_hora_encontrado: datetime, local_encontrado: str) -> Objeto
+    +listar() -> list[Objeto]
+    +procurar(id: int) -> Objeto | None
+    +atualizar(id: int, descricao: str, data_hora_encontrado: datetime, local_encontrado: str) -> None
+    +deletar(id: int) -> None
+}
+
+class SolicitacaoController <<control>> {
+    +inserir(id_solicitante: int, descricao: str, local_perdido: str, data_hora_perdido: datetime, data_hora: datetime) -> Solicitacao
+    +listar() -> list[Solicitacao]
+    +procurar(id: int) -> Solicitacao | None
+    +atualizar(id: int, id_solicitante: int, descricao: str, local_perdido: str, data_hora_perdido: datetime, data_hora: datetime) -> None
+    +deletar(id: int) -> None
+}
+
+class UsuarioController <<control>> {
+    +inserir(nome: str, email: str, telefone: str, senha: str, interessado: bool, funcionario: bool) -> Usuario
+    +listar() -> list[Usuario]
+    +procurar(id: int) -> Usuario | None
+    +atualizar(id: int, nome: str, email: str, telefone: str, senha: str, interessado: bool, funcionario: bool) -> None
+    +deletar(id: int) -> None
+    +autenticar(email: str, senha: str) -> Usuario | None
+}
+
+@enduml

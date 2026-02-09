@@ -1,0 +1,49 @@
+@startuml Model
+
+hide empty members
+skinparam classAttributeIconSize 0
+
+abstract class BaseModel
+
+class Objeto <<entity>> {
+    -id: int
+    -descricao: str
+    -data_hora_encontrado: datetime
+    -local_encontrado: str
+    +__init__(descricao, data_hora_encontrado, local_encontrado, id=None)
+}
+
+class Devolucao <<entity>> {
+    -id_objeto: int
+    -id_solicitante: int
+    -data_hora: datetime
+    +__init__(id_objeto, id_solicitante, data_hora)
+}
+
+class Solicitacao <<entity>> {
+    -id: int
+    -id_solicitante: int
+    -descricao: str
+    -local_perdido: str
+    -data_hora_perdido: datetime
+    -data_hora: datetime
+    +__init__(id_solicitante, descricao, local_perdido, data_hora_perdido, data_hora, id=None)
+}
+
+class Usuario <<entity>> {
+    -id: int
+    -nome: str
+    -email: str
+    -telefone: str
+    -senha: str
+    -interessado: bool
+    -funcionario: bool
+    +__init__(nome, email, telefone, senha, interessado, funcionario, id=None)
+}
+
+BaseModel <|-- Usuario
+BaseModel <|-- Objeto
+BaseModel <|-- Solicitacao
+BaseModel <|-- Devolucao
+
+@enduml

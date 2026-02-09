@@ -1,0 +1,45 @@
+@startuml DAO
+
+hide empty members
+skinparam classAttributeIconSize 0
+
+abstract class BaseDAO
+
+class UsuarioDAO {
+    +create(usuario: Usuario) -> None
+    +read(id: int) -> Usuario
+    +update(usuario: Usuario) -> None
+    +delete(id: int) -> None
+    +list_all() -> List[Usuario]
+}
+
+class ObjetoDAO {
+    +create(objeto: Objeto) -> None
+    +read(id: int) -> Objeto
+    +update(objeto: Objeto) -> None
+    +delete(id: int) -> None
+    +list_all() -> List[Objeto]
+}
+
+class SolicitacaoDAO {
+    +create(solicitacao: Solicitacao) -> None
+    +read(id: int) -> Solicitacao
+    +update(solicitacao: Solicitacao) -> None
+    +delete(id: int) -> None
+    +list_all() -> List[Solicitacao]
+}
+
+class DevolucaoDAO {
+    +create(devolucao: Devolucao) -> None
+    +read(id: int) -> Devolucao
+    +update(devolucao: Devolucao) -> None
+    +delete(id: int) -> None
+    +list_all() -> List[Devolucao]
+}
+
+BaseDAO <|-- UsuarioDAO
+BaseDAO <|-- ObjetoDAO
+BaseDAO <|-- SolicitacaoDAO
+BaseDAO <|-- DevolucaoDAO
+
+@enduml

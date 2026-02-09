@@ -1,0 +1,50 @@
+@startuml Main
+
+' ===== includes =====
+!include model.puml
+!include dao.puml
+!include controller.puml
+!include ui.puml
+
+
+' ---------- UI navigation ----------
+IndexUI ..> LoginUI
+IndexUI ..> RegistrarSolicitacaoUI
+IndexUI ..> SuasSolicitacoesUI
+IndexUI ..> ListarDevolucoesUI
+IndexUI ..> ListarObjetosUI
+IndexUI ..> ListarSolicitacoesUI
+IndexUI ..> RegistrarDevolucaoUI
+IndexUI ..> RegistrarObjetoUI
+IndexUI ..> RegistrarUsuarioUI
+
+
+' ---------- UI -> Controller ----------
+LoginUI ..> UsuarioController
+RegistrarUsuarioUI ..> UsuarioController
+
+RegistrarObjetoUI ..> ObjetoController
+ListarObjetosUI ..> ObjetoController
+
+RegistrarDevolucaoUI ..> DevolucaoController
+ListarDevolucoesUI ..> DevolucaoController
+
+RegistrarSolicitacaoUI ..> SolicitacaoController
+SuasSolicitacoesUI ..> SolicitacaoController
+ListarSolicitacoesUI ..> SolicitacaoController
+
+
+' ---------- Controller -> DAO ----------
+UsuarioController ..> UsuarioDAO
+ObjetoController ..> ObjetoDAO
+SolicitacaoController ..> SolicitacaoDAO
+DevolucaoController ..> DevolucaoDAO
+
+
+' ---------- DAO -> Model ----------
+UsuarioDAO ..> Usuario
+ObjetoDAO ..> Objeto
+SolicitacaoDAO ..> Solicitacao
+DevolucaoDAO ..> Devolucao
+
+@enduml

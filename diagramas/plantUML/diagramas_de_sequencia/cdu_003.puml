@@ -1,0 +1,36 @@
+@startuml cdu_003_registrar_usuario
+title CDU 003 - Registrar Usuario
+
+actor Funcionario
+
+participant IndexUI
+participant RegistrarUsuarioUI
+participant UsuarioController
+participant UsuarioDAO
+participant Usuario
+database SQLite
+
+IndexUI -> RegistrarUsuarioUI: main()
+
+Funcionario -> RegistrarUsuarioUI: open registration form
+
+RegistrarUsuarioUI -> UsuarioController: inserir(nome, email, telefone, senha, interessado, funcionario)
+
+UsuarioController -> Usuario: __new__(nome, email, telefone, senha, interessado, funcionario)
+
+UsuarioController -> UsuarioDAO: inserir(usuario)
+
+activate UsuarioDAO
+UsuarioDAO -> UsuarioDAO: abrir()
+UsuarioDAO -> SQLite: INSERT INTO usuario\n(nome, email, telefone, senha, interessado, funcionario)
+UsuarioDAO -> SQLite: SELECT * FROM usuario\nWHERE id = lastrowid
+SQLite --> UsuarioDAO: row
+UsuarioDAO -> Usuario: Usuario(**row)
+UsuarioDAO -> UsuarioDAO: fechar()
+deactivate UsuarioDAO
+
+UsuarioDAO --> UsuarioController: Usuario
+UsuarioController --> RegistrarUsuarioUI: Usuario
+RegistrarUsuarioUI --> Funcionario: show success message
+
+@enduml
